@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import "tailwindcss";
+
+@theme{
+    --breakpoint-xs: 480px;
+    --color-bg: #ffffff;
+    --color-lightblue: #bcddfe;
+    --color-accent1: #40a9ff;
+    --color-accent1-hover: #40BFFF;
+    --color-accent2: #FF4858;
+    --color-dark: #373737
+
+    
+}
+
+@layer base{
+    body{
+        
+        font-family: Poppins, serif;
+        font-optical-sizing: auto;
+        background: var(--color-bg);
+    }
+    
+    /* h1 {
+        @apply mx-auto max-w-4xl text-left text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[64px] sm:leading-[76px];
+    } */
+    h2 {
+        @apply text-4xl font-medium text-dark sm:text-5xl;
+    }
+    
+    h3 {
+        @apply text-2xl font-medium text-dark sm:text-3xl;
+    }
+    header{
+        @apply flex flex-col sm:flex-row justify-between items-center px-4 sm:px-14 py-3 flex-wrap gap-y-12 sm:gap-y-8
+    }
+    
+    main {
+        @apply min-h-screen relative bg-bg;
+    }
+    p{
+      @apply text-dark
+    }
+}
+
+@layer components{
+    .regular-text{
+        @apply text-xs sm:text-sm text-dark;
+    }
+}
+
+
+@layer utilities {
+    @keyframes fade-in-up {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    .animate-fade-in-up {
+      animation: fade-in-up 0.4s ease-out;
+    }
+  
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  }
