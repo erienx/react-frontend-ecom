@@ -6,7 +6,7 @@
     --breakpoint-xs: 480px;
     --color-bg: #ffffff;
     --color-lightblue: #bcddfe;
-    --color-accent1: #40a9ff;
+    --color-accent1: #259afa;
     --color-accent1-hover: #40BFFF;
     --color-accent2: #FF4858;
     --color-dark: #373737
@@ -37,7 +37,7 @@
     }
     
     main {
-        @apply min-h-screen relative bg-bg;
+      @apply relative bg-bg;
     }
     p{
       @apply text-dark
