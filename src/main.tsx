@@ -7,6 +7,9 @@ import Layout from './layouts/MainLayout.tsx'
 import HomePage from './pages/HomePage.tsx'
 import AboutPage from './pages/AboutPage.tsx'
 import ContactPage from './pages/ContactPage.tsx'
+import AuthLayout from './layouts/AuthLayout.tsx'
+import LoginPage from './pages/LoginPage.tsx'
+import RegisterPage from './pages/RegisterPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,14 @@ const router = createBrowserRouter([
         element: <ContactPage />
       }
     ]
+  },
+  {
+    path: '/',
+    element: <AuthLayout />,
+    children: [
+      { path: 'login', element: <LoginPage /> },
+      { path: 'register', element: <RegisterPage /> },
+    ],
   },
   {
     path: '*',

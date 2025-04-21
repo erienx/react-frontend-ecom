@@ -32,9 +32,9 @@
     h3 {
         @apply text-2xl font-medium text-dark sm:text-3xl;
     }
-    header{
+    /* header{
         @apply flex flex-col sm:flex-row justify-between items-center px-4 sm:px-14 py-3 flex-wrap gap-y-12 sm:gap-y-8
-    }
+    } */
     
     main {
       @apply relative bg-bg;
@@ -46,7 +46,7 @@
 
 @layer components{
     .regular-text{
-        @apply text-xs sm:text-sm text-dark;
+        @apply text-sm sm:text-lg text-dark;
     }
 }
 
