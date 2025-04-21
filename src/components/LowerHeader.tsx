@@ -25,8 +25,8 @@ const LowerHeader = () => {
         </div>
 
         <nav className="flex gap-6 sm:gap-10 lg:gap-16 items-center">
-          {options.map((opt) => (
-            <NavLink to={opt.path}
+          {options.map((opt, index) => ( //index is fine as a key cause static array
+            <NavLink key = {index} to={opt.path}
               className={({ isActive }) =>
                 `text-2xl sm:text-3xl transition-all duration-150 ${isActive ? "text-accent1 underline" : "hover:text-accent1-hover"}`}
             >{opt.text}</NavLink>

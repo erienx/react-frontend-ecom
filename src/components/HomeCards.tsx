@@ -36,7 +36,7 @@ const AllCards = () => {
             </ul>
             <p className="text-center text-dark mt-4">{visibleItemCount} items displayed</p>
 
-            {hasMoreItems && <Button1 handleLoadMore={handleLoadMore} text="load more" />}
+            {hasMoreItems && <Button1 onClick={handleLoadMore} text="load more" />}
         </section>
     )
 }
