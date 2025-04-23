@@ -1,15 +1,18 @@
 // import ProfileIcon from "../assets/profile-icon.svg?react"
 import { Link } from "react-router-dom"
 import CartIcon from "../assets/cart-icon.svg?react"
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "./providers/AuthProvider";
+import { useHasAccess } from "../hooks/useHasAccess";
 // import SearchIcon from "../assets/search-icon.svg?react"
 
 const UpperHeader = () => {
     const {currentUser, handleLogout} = useAuth();
+    const isAdmin = useHasAccess(['admin']);
     return (
         <>
             <header className="flex flex-col sm:flex-row justify-end items-center px-4 sm:px-14 py-3 flex-wrap gap-y-12 sm:gap-y-8">
                 <div className="flex flex-wrap items-center justify-between gap-4 sm:gap-8 lg:gap-12">
+                {isAdmin && (<Link to='/admin'>Admin stuff</Link>)}
                     {currentUser ? (
                         <>
                             <span className="regular-text">Welcome, <span className="font-semibold">{currentUser.firstName + " " + currentUser.lastName}</span></span>

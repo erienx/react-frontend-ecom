@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
-import { User } from "../types/types";
-import { getUser, login, logout } from "../util/auth";
+import { User } from "../../types/types";
+import { getUser, login, logout } from "../../util/auth";
 
 type AuthContext = {
     authToken?: string | null;

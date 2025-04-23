@@ -10,7 +10,9 @@ import ContactPage from './pages/ContactPage.tsx'
 import AuthLayout from './layouts/AuthLayout.tsx'
 import LoginPage from './pages/LoginPage.tsx'
 import RegisterPage from './pages/RegisterPage.tsx'
-import AuthProvider from './components/AuthProvider.tsx'
+import AuthProvider from './components/providers/AuthProvider.tsx'
+import ProtectedRoute from './components/providers/ProtectedRoute.tsx'
+import AdminPage from './pages/AdminPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,12 @@ const router = createBrowserRouter([
       {
         path: 'contact',
         element: <ContactPage />
+      },
+      {
+        path: '/admin',
+        element: (<ProtectedRoute  allowedRoles={['admin']}>
+                    <AdminPage/>
+                  </ProtectedRoute>)
       }
     ]
   },

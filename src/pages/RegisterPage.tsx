@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import AuthHeader from "../components/ui/AuthHeader"
 import RegisterForm from "../components/RegisterForm"
-import { useAuth } from "../components/AuthProvider";
+import { useAuth } from "../components/providers/AuthProvider";
 import { useEffect } from "react";
 
 const RegisterPage = () => {
