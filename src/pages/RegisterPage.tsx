@@ -1,8 +1,17 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import AuthHeader from "../components/ui/AuthHeader"
 import RegisterForm from "../components/RegisterForm"
+import { useAuth } from "../components/AuthProvider";
+import { useEffect } from "react";
 
 const RegisterPage = () => {
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (currentUser) navigate('/');
+  }, [currentUser]);
+
   return (
     <>
       <AuthHeader text1="Let's get started" text2="Create a new account" />

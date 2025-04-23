@@ -107,7 +107,7 @@ export const RegisterForm = () => {
                 error={errors.confirmPassword}
             />
 
-            <ButtonSubmit isSubmitting={isSubmitting} />
+            <ButtonSubmit isSubmitting={isSubmitting} btnText="Register" />
             <FormError error={errors.root} />
         </form>
     );

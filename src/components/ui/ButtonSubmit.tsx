@@ -1,9 +1,10 @@
 import Spinner from "../../assets/Spinner.tsx"
 type SubmitType = {
     isSubmitting: boolean
+    btnText?: string;
 }
 
-const ButtonSubmit = ({ isSubmitting }: SubmitType) => {
+const ButtonSubmit = ({ isSubmitting, btnText }: SubmitType) => {
     return (
         <button disabled={isSubmitting} type="submit" className={`${isSubmitting ? "bg-slate-500" : "bg-accent1 hover:bg-accent1-hover"} p-3 rounded-xl text-white cursor-pointer transition-colors duration-150 `}>
             {isSubmitting ?
@@ -14,7 +15,7 @@ const ButtonSubmit = ({ isSubmitting }: SubmitType) => {
              darkColor="dark:grey-800"
              fill="fill-grey-800"
            /> Loading...</div> :
-              "Submit"}</button>
+              (btnText? btnText: "Submit")}</button>
     )
 }
 

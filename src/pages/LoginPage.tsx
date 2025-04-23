@@ -1,11 +1,18 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { LoginForm } from "../components/LoginForm"
 import AuthHeader from "../components/ui/AuthHeader"
+import { useEffect } from "react";
+import { useAuth } from "../components/AuthProvider";
 
 
 
 const LoginPage = () => {
+    const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        if (currentUser) navigate('/');
+    }, [currentUser]);
 
     return (
         <>

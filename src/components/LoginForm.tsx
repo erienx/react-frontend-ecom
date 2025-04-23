@@ -7,6 +7,7 @@ import FormError from "../components/ui/FormError";
 import ButtonSubmit from "../components/ui/ButtonSubmit";
 import FormInput from "../components/FormInput";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthProvider";
 
 const schema = z.object({
     email: z.string().email("Please enter a valid email address"),
@@ -27,10 +28,11 @@ export const LoginForm = () => {
       const navigate = useNavigate();
   
   
+      const {handleLogin} = useAuth();
       const onSubmit: SubmitHandler<FormFields> = async (data) => {
           try {
               // request to backend here
-              await new Promise((resolve) => setTimeout(resolve, 1000));
+              await handleLogin();
               console.log(data);
   
   
@@ -65,7 +67,7 @@ export const LoginForm = () => {
   
   
   
-              <ButtonSubmit isSubmitting={isSubmitting} />
+              <ButtonSubmit isSubmitting={isSubmitting} btnText="Log in"/>
               <FormError error={errors.root} />
           </form>
       )
