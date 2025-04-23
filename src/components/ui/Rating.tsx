@@ -17,7 +17,9 @@ const Rating = ({ rating }: { rating: number }) => {
 
     return (
         <div className="flex flex-row items-center justify-center gap-x-2">
-            {stars}
+            {stars.map((star, index) => { 
+                return <span key = {index}>{star}</span>
+            }) }
             <p className="font-bold text-dark">{rating ? rating : "N/A"}</p>
         </div>
     )
