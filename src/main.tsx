@@ -13,6 +13,8 @@ import RegisterPage from './pages/RegisterPage.tsx'
 import AuthProvider from './components/providers/AuthProvider.tsx'
 import ProtectedRoute from './components/providers/ProtectedRoute.tsx'
 import AdminPage from './pages/AdminPage.tsx'
+import { ItemPage } from './pages/ItemPage.tsx'
+import CartPage from './pages/CartPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -32,11 +34,20 @@ const router = createBrowserRouter([
         element: <ContactPage />
       },
       {
-        path: '/admin',
+        path: 'admin',
         element: (<ProtectedRoute  allowedRoles={['admin']}>
                     <AdminPage/>
                   </ProtectedRoute>)
+      },
+      {
+        path: 'item/term/:query', 
+        element: <ItemPage />
+      },
+      {
+        path: 'cart',
+        element: <CartPage/>
       }
+
     ]
   },
   {

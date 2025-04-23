@@ -18,13 +18,13 @@ const LowerHeader = () => {
   ]
   return (
     <>
-      <header className='flex flex-col sm:flex-row justify-between items-center px-4 sm:px-14 py-3 flex-wrap gap-y-12 sm:gap-y-8'>
+      <header className='flex flex-col sm:flex-row justify-between items-center px-4 sm:px-14 py-3 flex-wrap  gap-y-12 sm:gap-y-8'>
         <div className="flex gap-3 items-center mr-12">
           <LogoIcon />
           <h4 className="font-bold text-dark text-2xl">byznes synu</h4>
         </div>
 
-        <nav className="flex gap-6 sm:gap-10 lg:gap-16 items-center">
+        <nav className="flex gap-6 sm:gap-10 lg:gap-16 items-center ">
           {options.map((opt, index) => ( //index is fine as a key cause static array
             <NavLink key = {index} to={opt.path}
               className={({ isActive }) =>

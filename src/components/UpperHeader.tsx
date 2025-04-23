@@ -31,10 +31,10 @@ const UpperHeader = () => {
                     </div> */}
 
 
-                    <div className="flex items-center gap-2">
+                    <Link to='cart' className="flex items-center gap-2">
                         <CartIcon />
                         <span className="regular-text">Items</span>
-                    </div>
+                    </Link>
 
                     {/* <div className="flex items-center gap-2">
                         <span className="regular-text">$0.00</span>
