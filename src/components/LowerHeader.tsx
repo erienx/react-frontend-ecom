@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import LogoIcon from '../assets/logo-icon.svg?react';
 
 const LowerHeader = () => {
@@ -19,10 +19,10 @@ const LowerHeader = () => {
   return (
     <>
       <header className='flex flex-col sm:flex-row justify-between items-center px-4 sm:px-14 py-3 flex-wrap  gap-y-12 sm:gap-y-8'>
-        <div className="flex gap-3 items-center mr-12">
+        <Link to='/' className="flex gap-3 items-center mr-12">
           <LogoIcon />
           <h4 className="font-bold text-dark text-2xl">byznes synu</h4>
-        </div>
+        </Link>
 
         <nav className="flex gap-6 sm:gap-10 lg:gap-16 items-center ">
           {options.map((opt, index) => ( //index is fine as a key cause static array

@@ -15,7 +15,7 @@ const SearchInput = () => {
   const navigate = useNavigate();
   const redirect = () => {
     if (query) {
-      navigate(`/item/term/${query}`);
+      navigate(`/search/term/${query}`);
     }
   }
 

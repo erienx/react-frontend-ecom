@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom"
 import { ItemProps } from "../types/types"
 import Rating from "./ui/Rating"
 
 
 const ItemCard = ({ item }: { item: ItemProps }) => {
     return (
-        <div className="flex flex-col gap-y-5 bg-slate-200 p-5 rounded-md shadow-inner transition-all duration-450 hover:scale-102 cursor-pointer hover:bg-slate-100">
+        <Link to={`item/id/${item.id}`} className="flex flex-col gap-y-5 bg-slate-200 p-5 rounded-md shadow-inner transition-all duration-450 hover:scale-102 cursor-pointer hover:bg-slate-100">
             <img className="rounded-lg w-full h-72 object-cover"
                 src={item.imgPath ? item.imgPath : './no-img.png'} alt={item.name} />
             <div className="mt-2">
@@ -33,7 +34,7 @@ const ItemCard = ({ item }: { item: ItemProps }) => {
                     }
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

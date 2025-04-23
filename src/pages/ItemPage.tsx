@@ -4,6 +4,6 @@ export const ItemPage = () => {
     const params = useParams<{query: string}>();
 
     return (
-    <div>ItemPage, params: {params.query}</div>
+    <div>ItemPage, id: {params.query}</div>
     )
 }
