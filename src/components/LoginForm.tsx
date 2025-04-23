@@ -6,6 +6,7 @@ import { z } from "zod";
 import FormError from "../components/ui/FormError";
 import ButtonSubmit from "../components/ui/ButtonSubmit";
 import FormInput from "../components/FormInput";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
     email: z.string().email("Please enter a valid email address"),
@@ -22,6 +23,8 @@ export const LoginForm = () => {
       });
       const emailValue = watch("email");
       const passwordValue = watch("password");
+
+      const navigate = useNavigate();
   
   
       const onSubmit: SubmitHandler<FormFields> = async (data) => {
@@ -32,6 +35,7 @@ export const LoginForm = () => {
   
   
               reset(); //if successful
+              navigate("/");
           }
           catch {
               setError("root", { message: "Given email is already taken", });

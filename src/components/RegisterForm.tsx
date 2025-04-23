@@ -8,6 +8,7 @@ import ProfileIcon from "../assets/profile-icon.svg?react"
 import FormError from "../components/ui/FormError";
 import ButtonSubmit from "../components/ui/ButtonSubmit";
 import FormInput from "../components/FormInput";
+import { useNavigate } from "react-router-dom";
 
 
 // Zod schema for Register Form
@@ -42,13 +43,17 @@ export const RegisterForm = () => {
     const emailValue = watch("email");
     const passwordValue = watch("password");
     const confirmPasswordValue = watch("confirmPassword");
+    
+    const navigate = useNavigate();
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
             await new Promise((resolve) => setTimeout(resolve, 1000));
             console.log(data);
 
+            //if successful
             reset();
+            navigate("/");
         } catch {
             setError("root", {
                 message: "Something went wrong. Try again later.",
