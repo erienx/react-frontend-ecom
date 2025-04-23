@@ -50,7 +50,7 @@ export default function AuthProvider({children} : AuthProviderProps) {
     }
     async function handleLogout(){
         await logout();
-        
+
         setAuthToken(null);
         setCurrentUser(null);
     }

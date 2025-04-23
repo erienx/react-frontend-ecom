@@ -1,5 +1,5 @@
 // import ProfileIcon from "../assets/profile-icon.svg?react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import CartIcon from "../assets/cart-icon.svg?react"
 import { useAuth } from "./providers/AuthProvider";
 import { useHasAccess } from "../hooks/useHasAccess";
@@ -8,6 +8,13 @@ import { useHasAccess } from "../hooks/useHasAccess";
 const UpperHeader = () => {
     const {currentUser, handleLogout} = useAuth();
     const isAdmin = useHasAccess(['admin']);
+    const navigate = useNavigate();
+
+    const logoutAndRedirect = async ( ) =>{
+        await handleLogout();
+        navigate('/');
+    }
+
     return (
         <>
             <header className="flex flex-col sm:flex-row justify-end items-center px-4 sm:px-14 py-3 flex-wrap gap-y-12 sm:gap-y-8">
@@ -16,7 +23,7 @@ const UpperHeader = () => {
                     {currentUser ? (
                         <>
                             <span className="regular-text">Welcome, <span className="font-semibold">{currentUser.firstName + " " + currentUser.lastName}</span></span>
-                            <button onClick={handleLogout} className="regular-text cursor-pointer">Sign Out</button>
+                            <button onClick={logoutAndRedirect} className="regular-text cursor-pointer">Sign Out</button>
                         </>
                     ):
                     (
