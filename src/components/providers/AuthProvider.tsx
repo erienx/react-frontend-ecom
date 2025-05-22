@@ -1,69 +1,62 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { User } from "../../types/types";
-import { getUser, login, logout } from "../../util/auth";
+import { login, logout, refreshToken } from "../../util/auth";
+import { AuthContext } from "./AuthContext";
+import getMe from "../../api/getMe";
 
-type AuthContext = {
-    authToken?: string | null;
-    currentUser?: User | null;
-    handleLogin: () => Promise<void>;
-    handleLogout: () => Promise<void>;
-}
 
-const AuthContext = createContext<AuthContext | undefined>(undefined);
 
 type AuthProviderProps = PropsWithChildren;
 
-export default function AuthProvider({children} : AuthProviderProps) {
-    const [authToken, setAuthToken] = useState<string | null>();
-    const [currentUser, setCurrentUser] = useState<User | null>();
+export default function AuthProvider({ children }: AuthProviderProps) {
+    const [authToken, setAuthToken] = useState<string | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-        async function fetchUser() {
-            try{
-                const response = await getUser();
-                
-                const {authToken, user} = response.data;
-    
-                setAuthToken(authToken);
+
+
+    useEffect(() => {
+        async function tryRefresh() {
+            try {
+                const accessToken = await refreshToken();
+                setAuthToken(accessToken);
+                const user = await getMe(accessToken);
                 setCurrentUser(user);
-            }catch{
+            } catch (err) {
                 setAuthToken(null);
                 setCurrentUser(null);
             }
+            finally {
+                setLoading(false);
+            }
         }
- 
-        fetchUser();
-    }, [])
 
-    async function handleLogin() {
-        try{
-            const response = await login();
-            
-            const {authToken, user} = response.data;
+        tryRefresh();
+    }, []);
 
-            setAuthToken(authToken);
+    async function handleLogin(email: string, password: string) {
+        try {
+            const accessToken = await login(email, password);
+            setAuthToken(accessToken);
+            const user = await getMe(accessToken);
             setCurrentUser(user);
-        }catch{
+        } catch {
             setAuthToken(null);
             setCurrentUser(null);
+            throw new Error("Login failed");
         }
     }
-    async function handleLogout(){
-        await logout();
 
+    async function handleLogout() {
+        await logout();
         setAuthToken(null);
         setCurrentUser(null);
     }
 
-    return <AuthContext.Provider value={{authToken,currentUser,handleLogin,handleLogout}}>
-        {children}
-    </AuthContext.Provider>
+    return (
+        <AuthContext.Provider value={{ authToken, currentUser, handleLogin, handleLogout, loading }}>
+            {children}
+        </AuthContext.Provider>
+    );
 }
 
-export function useAuth() {
-    const context = useContext(AuthContext);
-    if (context === undefined){
-        throw new Error("useAuth should be used inside of auth provider");
-    }
-    return context; 
-}

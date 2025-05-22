@@ -1,7 +1,7 @@
 // import ProfileIcon from "../assets/profile-icon.svg?react"
 import { Link, useNavigate } from "react-router-dom"
 import CartIcon from "../assets/cart-icon.svg?react"
-import { useAuth } from "./providers/AuthProvider";
+import { useAuth } from "../components/providers/AuthContext";
 import { useHasAccess } from "../hooks/useHasAccess";
 // import SearchIcon from "../assets/search-icon.svg?react"
 
