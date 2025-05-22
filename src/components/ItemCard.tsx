@@ -9,7 +9,7 @@ const ItemCard = ({ item }: { item: ItemProps }) => {
             <img className="rounded-lg w-full h-72 object-cover"
                 src={item.imgPath ? item.imgPath : './no-img.png'} alt={item.name} />
             <div className="mt-2">
-                <p className="text-2xl font-bold text-center text-dark sm:text-3xl">{item.name}</p>
+                <p className="text-md font-bold text-center text-dark sm:text-xl h-[4rem] overflow-hidden text-ellipsis">{item.name}</p>
             </div>
 
             <Rating rating={item.rating} />
