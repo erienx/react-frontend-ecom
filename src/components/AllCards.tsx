@@ -39,7 +39,7 @@ const AllCards = () => {
             const newItems = res.data.content.map((item: any) => ({
                 id: item.id,
                 name: item.name,
-                imgPath: item.imageURL,
+                imageURL: item.imageURL,
                 price: item.price,
                 categoryName: item.categoryName,
                 prevPrice: 1000,

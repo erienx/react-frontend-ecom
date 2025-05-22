@@ -1,7 +1,7 @@
 export type ItemProps = {
   id: number;
   name: string;
-  imgPath: string;
+  imageURL: string;
   price: number;
   prevPrice?: number;
   rating: number;
