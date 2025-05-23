@@ -44,3 +44,13 @@ export type CartItem= {
     quantity: number;
     product: ItemProps;
 }
+export type ReviewResponse = {
+  id: number;
+  userId: number;
+  userName: string;
+  productId: number;
+  productName: string;
+  rating: number;
+  text: string;
+  addedAt: string; 
+}

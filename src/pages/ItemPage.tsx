@@ -4,6 +4,7 @@ import axios from "axios";
 import { ProductResponse } from "../types/types";
 import ProductDetails from "../components/ProductDetails";
 import RelatedProducts from "../components/RelatedProducts";
+import ReviewModal from "../components/ReviewModal";
 
 export const ItemPage = () => {
     const { query } = useParams<{ query: string }>();
@@ -11,6 +12,7 @@ export const ItemPage = () => {
     const [related, setRelated] = useState<ProductResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [showReviews, setShowReviews] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -51,14 +53,35 @@ export const ItemPage = () => {
         fetchProduct();
     }, [query]);
 
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && showReviews) {
+                setShowReviews(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [showReviews]);
+
     if (loading) return <p className="text-center mt-10 text-lg text-slate-600">Loading product...</p>;
     if (error) return <p className="text-center mt-10 text-lg text-red-500">{error}</p>;
     if (!product) return <p className="text-center mt-10 text-lg text-slate-600">Product not found.</p>;
 
     return (
-        <div className="mb-3">
-            <ProductDetails product={product} />
-            <RelatedProducts categoryName={product.categoryName} products={related} />
+        <div className="relative min-h-screen">
+            <div className={`mb-3 transition-all duration-300 ease-out ${showReviews ? "sm:mr-96" : ""
+                }`}>
+                <ProductDetails product={product} onShowReviews={() => setShowReviews((prev) => !prev)} />
+                <RelatedProducts categoryName={product.categoryName} products={related} />
+            </div>
+
+            {showReviews && product && (
+                <ReviewModal
+                    productId={product.id}
+                    onClose={() => setShowReviews(false)}
+                />
+            )}
         </div>
     );
 };
