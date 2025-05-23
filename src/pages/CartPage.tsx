@@ -54,22 +54,19 @@ const CartPage = () => {
       console.error("error removing cart item", err);
     }
   };
-  const handleQuantityChange = async (cartId: number, productId: number, quantity: number,userId: number | null | undefined) => {
+  const handleQuantityChange = async (cartId: number, productId: number, quantity: number, userId: number | null | undefined) => {
     if (quantity < 1 || !userId) return;
-    // console.log(userId,
-    //   productId,
-    //   quantity)
 
-      const cartItem = cartItems.find(item => item.cartId === cartId);
-  if (!cartItem) return;
+    const cartItem = cartItems.find(item => item.cartId === cartId);
+    if (!cartItem) return;
 
-  const availableStock = cartItem.product.quantity;
-  if (quantity > availableStock) {
-    alert(`Only ${availableStock} items available in stock.`);
-    return;
-  }
+    const availableStock = cartItem.product.quantity;
+    if (quantity > availableStock) {
+      alert(`Only ${availableStock} items available in stock.`);
+      return;
+    }
     try {
-      const res = await axios.put(
+      await axios.put(
         `http://localhost:8080/api/shopping-carts/${cartId}`,
         {
           userId,
@@ -114,7 +111,7 @@ const CartPage = () => {
               item={item.product}
               quantity={item.quantity}
               onRemove={() => handleRemove(item.cartId)}
-              onQuantityChange={(delta) => handleQuantityChange( item.cartId, item.product.id , item.quantity + delta,currentUser?.userId)}/>
+              onQuantityChange={(delta) => handleQuantityChange(item.cartId, item.product.id, item.quantity + delta, currentUser?.userId)} />
           ))}
         </div>
       )}
