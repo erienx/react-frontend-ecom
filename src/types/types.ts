@@ -8,7 +8,7 @@ export type ItemProps = {
   categoryName: string;
 };
 export type User = {
-    id: number;
+    userId: number;
     email: string;
     firstName: string;
     lastName: string;

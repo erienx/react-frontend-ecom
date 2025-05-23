@@ -29,6 +29,7 @@ const AllCards = () => {
 
     useEffect(() => {
         fetchItems(page);
+        console.log(items)
     }, [page, selectedCategory]);
 
     const fetchItems = async (pageToLoad: number) => {
@@ -45,7 +46,7 @@ const AllCards = () => {
                 prevPrice: 1000,
                 rating: 4.5,
             }));
-            setItems((prev) => [...prev, ...newItems]);
+            setItems([...items, ...newItems]);
             setHasMore(!res.data.last);
         } catch (error) {
             console.error("Error fetching items", error);
@@ -75,6 +76,7 @@ const AllCards = () => {
             <CategorySelector category={selectedCategory} setCategory={setSelectedCategory} categories={categories} />
 
             <ul className="grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+
                 {items.map((item, index) => (
                     <li
                         key={item.id}
