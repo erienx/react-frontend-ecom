@@ -30,3 +30,17 @@ export type ProductResponse= {
     prevPrice?: number;
     rating: number;
 }
+export type ShoppingCartResponse= {
+    id: number;
+    userId: number;
+    userName: string;
+    productId: number;
+    productName: string;
+    quantity: number;
+}
+
+export type CartItem= {
+    cartId: number;
+    quantity: number;
+    product: ItemProps;
+}

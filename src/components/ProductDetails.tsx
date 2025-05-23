@@ -22,8 +22,9 @@ const ProductDetails = ({ product }: Props) => {
 
             <section className="flex flex-col gap-6">
                 <h1 className="text-4xl font-bold text-gray-900">{product.name}</h1>
+                <h4 className="text-xl font-semi-bold text-gray-600">by <span className="font-bold">{product.brandName}</span></h4>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 mb-4">
                     <Rating rating={product.rating} />
                     <span className="text-slate-500 text-sm">
                         ({product.rating.toFixed(1)} / 5)

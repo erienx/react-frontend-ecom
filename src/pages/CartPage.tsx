@@ -1,8 +1,87 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import ItemList from "../components/ItemList";
+import useAuth from "../components/providers/AuthContext";
+import { CartItem, ItemProps, ShoppingCartResponse } from "../types/types";
 
 const CartPage = () => {
-  return (
-    <div>CartPage</div>
-  )
-}
+  const { authToken, currentUser } = useAuth();
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-export default CartPage
+  const fetchCartItems = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get<ShoppingCartResponse[]>(
+        "http://localhost:8080/api/shopping-carts",
+        {
+          headers: { Authorization: `Bearer ${authToken}` },
+        }
+      );
+
+      const fullItems = await Promise.all(
+        res.data.map(async (entry) => {
+          const productRes = await axios.get<ItemProps>(
+            `http://localhost:8080/api/products/${entry.productId}`
+          );
+          return {
+            cartId: entry.id,
+            quantity: entry.quantity,
+            product: {
+              ...productRes.data,
+              prevPrice: 1000,
+              rating: 4.5,
+            },
+          };
+        })
+      );
+
+      setCartItems(fullItems);
+    } catch (err) {
+      console.error("error fetching cart items or products", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRemove = async (cartId: number) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/shopping-carts/${cartId}`, {
+        headers: { Authorization: `Bearer ${authToken}` },
+      });
+      setCartItems(prev => prev.filter(item => item.cartId !== cartId));
+    } catch (err) {
+      console.error("error removing cart item", err);
+    }
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      fetchCartItems();
+    }
+  }, [currentUser]);
+  return (
+    <div className="max-w-5xl mx-auto py-10 px-6">
+      <h1 className="text-3xl font-bold mb-6">Your Shopping Cart</h1>
+
+      {loading ? (
+        <p className="text-lg text-gray-600">Loading cart...</p>
+      ) : cartItems.length === 0 ? (
+        <p className="text-lg text-gray-600">Your cart is empty.</p>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {cartItems.map(item => (
+
+            <ItemList
+              key={item.cartId}
+              item={item.product}
+              onRemove={() => handleRemove(item.cartId)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default CartPage;
