@@ -6,6 +6,7 @@ export type ItemProps = {
   prevPrice?: number;
   rating: number;
   categoryName: string;
+  quantity: number;
 };
 export type User = {
     userId: number;

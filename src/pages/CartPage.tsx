@@ -54,6 +54,43 @@ const CartPage = () => {
       console.error("error removing cart item", err);
     }
   };
+  const handleQuantityChange = async (cartId: number, productId: number, quantity: number,userId: number | null | undefined) => {
+    if (quantity < 1 || !userId) return;
+    // console.log(userId,
+    //   productId,
+    //   quantity)
+
+      const cartItem = cartItems.find(item => item.cartId === cartId);
+  if (!cartItem) return;
+
+  const availableStock = cartItem.product.quantity;
+  if (quantity > availableStock) {
+    alert(`Only ${availableStock} items available in stock.`);
+    return;
+  }
+    try {
+      const res = await axios.put(
+        `http://localhost:8080/api/shopping-carts/${cartId}`,
+        {
+          userId,
+          productId,
+          quantity,
+        },
+        {
+          headers: { Authorization: `Bearer ${authToken}` },
+        }
+      );
+
+      setCartItems(prev =>
+        prev.map(item =>
+          item.cartId === cartId ? { ...item, quantity: quantity } : item
+        )
+      );
+    } catch (err) {
+      console.error("Failed to update quantity", err);
+    }
+  };
+
 
   useEffect(() => {
     if (currentUser) {
@@ -75,8 +112,9 @@ const CartPage = () => {
             <ItemList
               key={item.cartId}
               item={item.product}
+              quantity={item.quantity}
               onRemove={() => handleRemove(item.cartId)}
-            />
+              onQuantityChange={(delta) => handleQuantityChange( item.cartId, item.product.id , item.quantity + delta,currentUser?.userId)}/>
           ))}
         </div>
       )}
