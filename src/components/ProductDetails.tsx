@@ -33,6 +33,21 @@ const ProductDetails = ({ product }: Props) => {
 
                 <p className="text-lg text-slate-700 leading-relaxed">{product.description}</p>
 
+
+
+                <div className="flex flex-col gap-1 text-md text-slate-400">
+                    <p>
+                        <span className="font-semibold">Category:</span> {product.categoryName}
+                    </p>
+                    <p>
+                        <span className="font-semibold">Added:</span>{" "}
+                        {new Date(product.addedAt).toLocaleDateString()}
+                    </p>
+                    <p>
+                        <span className="font-semibold">Availability:</span> {product.quantity} in stock
+                    </p>
+                </div>
+
                 <div className="flex items-center gap-4 mt-2">
                     <span className="text-3xl font-bold text-accent1">
                         ${product.price.toFixed(2)}
@@ -45,22 +60,6 @@ const ProductDetails = ({ product }: Props) => {
                             <span className="text-accent2 text-xl">{discount}% OFF</span>
                         </>
                     )}
-                </div>
-
-                <div className="flex flex-col gap-1 text-md text-slate-400">
-                    <p>
-                        <span className="font-semibold">Category:</span> {product.categoryName}
-                    </p>
-                    <p>
-                        <span className="font-semibold">Brand:</span> {product.brandName}
-                    </p>
-                    <p>
-                        <span className="font-semibold">Added:</span>{" "}
-                        {new Date(product.addedAt).toLocaleDateString()}
-                    </p>
-                    <p>
-                        <span className="font-semibold">Availability:</span> {product.quantity} in stock
-                    </p>
                 </div>
 
                 <CartControls product={product} />
