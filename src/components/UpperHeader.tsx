@@ -25,6 +25,15 @@ const UpperHeader = () => {
                         <>
                             <span className="regular-text">Welcome, <span className="font-semibold">{currentUser.firstName + " " + currentUser.lastName}</span></span>
                             <button onClick={logoutAndRedirect} className="regular-text cursor-pointer">Sign Out</button>
+                            <Link to='cart' className="flex items-center gap-2">
+                                <CartIcon />
+                                <span className="regular-text">Items</span>
+                            </Link>
+                            <Link to='wishlist' className="flex items-center gap-2">
+                                <WishlistIcon width={25} height={25} />
+                                <span className="regular-text">Wishlist</span>
+                            </Link>
+
                         </>
                     ) :
                         (
@@ -38,19 +47,6 @@ const UpperHeader = () => {
                         <span className="regular-text">My Profile</span>
                     </div> */}
 
-                    {currentUser && (
-                        <div className="flex flex-row gap-3">
-                            <Link to='cart' className="flex items-center gap-2">
-                                <CartIcon />
-                                <span className="regular-text">Items</span>
-                            </Link>
-                            <Link to='wishlist' className="flex items-center gap-2">
-                                <WishlistIcon width={25} height={25} />
-                                <span className="regular-text">Wishlist</span>
-                            </Link>
-
-                        </div>
-                    )}
 
                     {/* <div className="flex items-center gap-2">
                         <span className="regular-text">$0.00</span>
