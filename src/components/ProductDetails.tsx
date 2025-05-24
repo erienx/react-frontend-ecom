@@ -1,6 +1,8 @@
 import Rating from "../components/ui/Rating";
 import { ProductResponse } from "../types/types";
 import CartControls from "../components/CartControls";
+import WishlistHeart from "./WishlistHeart";
+import useAuth from "./providers/AuthContext";
 
 type Props = {
     product: ProductResponse;
@@ -8,13 +10,21 @@ type Props = {
 };
 
 const ProductDetails = ({ product, onShowReviews }: Props) => {
-    const discount =
-        product.prevPrice && product.prevPrice > product.price ? Math.round(100 - (product.price / product.prevPrice) * 100) : null;
+    const { authToken, currentUser, loading } = useAuth();
+    const discount = product.prevPrice && product.prevPrice > product.price ? Math.round(100 - (product.price / product.prevPrice) * 100) : null;
 
     return (
         <main className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 gap-10 bg-slate-200 shadow-2xl rounded-2xl">
-            <img src={product.imageURL || "/no-img.png"} alt={product.name}
-                className="w-full h-[500px] object-cover rounded-2xl shadow-lg" />
+            <div className="relative">
+                <img src={product.imageURL || "/no-img.png"} alt={product.name}
+                    className="w-full h-[500px] object-cover rounded-2xl shadow-lg" />
+                
+                {currentUser && authToken && !loading && (
+                    <div className="absolute top-4 right-4 z-10">
+                        <WishlistHeart productId={product.id} />
+                    </div>
+                )}
+            </div>
 
             <section className="flex flex-col gap-6">
                 <h1 className="text-4xl font-bold text-gray-900">{product.name}</h1>

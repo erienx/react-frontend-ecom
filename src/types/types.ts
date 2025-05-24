@@ -66,3 +66,13 @@ export type PageResponse<T> = {
     first: boolean;
     last: boolean;
 }
+export type WishlistProductInfo = {
+  id: number;
+  name: string;
+};
+
+export type WishlistResponse = {
+  id: number;
+  userId: number;
+  products: WishlistProductInfo[];
+};

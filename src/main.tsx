@@ -16,6 +16,7 @@ import AdminPage from './pages/AdminPage.tsx'
 import { ItemPage } from './pages/ItemPage.tsx'
 import CartPage from './pages/CartPage.tsx'
 import SearchPage from './pages/SearchPage.tsx'
+import WishlistPage from './pages/WishlistPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -36,21 +37,25 @@ const router = createBrowserRouter([
       },
       {
         path: 'admin',
-        element: (<ProtectedRoute  allowedRoles={['admin']}>
-                    <AdminPage/>
-                  </ProtectedRoute>)
+        element: (<ProtectedRoute allowedRoles={['admin']}>
+          <AdminPage />
+        </ProtectedRoute>)
       },
       {
-        path: 'search/term/:query', 
+        path: 'search/term/:query',
         element: <SearchPage />
       },
       {
-        path: 'item/id/:query', 
+        path: 'item/id/:query',
         element: <ItemPage />
       },
       {
         path: 'cart',
-        element: <CartPage/>
+        element: <CartPage />
+      },
+      {
+        path: 'wishlist',
+        element: <WishlistPage />
       }
 
     ]
