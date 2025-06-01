@@ -1,8 +1,12 @@
+import ContactForm from "../components/ContactForm.tsx";
 
 const ContactPage = () => {
     return (
-        <div>ContactPage</div>
-    )
+        <div>
+            <h1>Contact Us</h1>
+            <ContactForm />
+        </div>
+    );
 }
 
-export default ContactPage
+export default ContactPage;
