@@ -29,8 +29,6 @@ const CartPage = () => {
             quantity: entry.quantity,
             product: {
               ...productRes.data,
-              prevPrice: 1000,
-              rating: 4.5,
             },
           };
         })

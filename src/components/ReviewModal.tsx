@@ -66,10 +66,7 @@ const ReviewModal = ({ productId, onClose }: Props) => {
                                         {reviews.length} review{reviews.length !== 1 ? 's' : ''}
                                     </span>
                                     <div className="flex items-center">
-                                        <Rating rating={reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length} />
-                                        <span className="ml-2 text-sm text-gray-600">
-                                            ({(reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1)})
-                                        </span>
+                                        <Rating rating={Math.round((reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length) * 10) / 10} />
                                     </div>
                                 </div>
                             </div>

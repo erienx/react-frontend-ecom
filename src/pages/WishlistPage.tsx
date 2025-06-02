@@ -33,11 +33,11 @@ const WishlistPage = () => {
                     res.data.products.map(async (product) => {
                         try {
                             const prodRes = await axios.get<ItemProps>(`http://localhost:8080/api/products/${product.id}`);
-                            return { ...prodRes.data, prevPrice: 1000, rating: 4.5 };
+                            return { ...prodRes.data };
                         } catch (error) {
                             console.error(`Error fetching product ${product.id}:`, error);
                             return {
-                                id: product.id, name: product.name, price: 0, prevPrice: 1000, rating: 4.5, imageURL: './no-img.png'
+                                id: product.id, name: product.name, price: 0, prevPrice: 1000, imageURL: './no-img.png'
                             } as ItemProps;
                         }
                     })

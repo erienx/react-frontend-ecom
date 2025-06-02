@@ -40,12 +40,12 @@ const ItemList = ({ item, quantity = 1, onRemove, onQuantityChange }: Props) => 
                     </Link>
 
                     <div className="self-start">
-                        <Rating rating={item.rating} />
+                        <Rating rating={Math.round(item.reviewAverage * 10) / 10} />
                     </div>
 
                     <div className="flex items-center gap-4 flex-wrap">
                         <span className="text-accent1 font-bold text-xl">${item.price.toFixed(2)}</span>
-                        {item.prevPrice && (
+                        {(item.prevPrice && item.price != item.prevPrice) && (
                             <>
                                 <span className="text-slate-500 line-through text-lg">
                                     ${item.prevPrice.toFixed(2)}
