@@ -4,7 +4,7 @@ export type ItemProps = {
   imageURL: string;
   price: number;
   prevPrice?: number;
-  rating: number;
+  reviewAverage: number;
   categoryName: string;
   quantity: number;
 };
@@ -29,7 +29,8 @@ export type ProductResponse= {
     quantity: number;
     addedAt: string;
     prevPrice?: number;
-    rating: number;
+    reviews: any[];
+    reviewAverage: number;
 }
 export type ShoppingCartResponse= {
     id: number;

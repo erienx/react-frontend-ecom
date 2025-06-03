@@ -8,6 +8,8 @@ import ButtonSubmit from "../components/ui/ButtonSubmit";
 import FormInput from "../components/FormInput";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../components/providers/AuthContext";
+import {CredentialResponse, GoogleLogin, GoogleOAuthProvider} from "@react-oauth/google";
+
 
 const schema = z.object({
     email: z.string().email("Please enter a valid email address"),
@@ -27,8 +29,26 @@ export const LoginForm = () => {
 
     const navigate = useNavigate();
 
+    const clientId = import.meta.env.VITE_REACT_APP_GOOGLE_CLIENT_ID;
 
-    const { handleLogin } = useAuth();
+    const { handleLogin, handleLoginViaGoogle } = useAuth();
+
+    const handleGoogleLogin = async (response: CredentialResponse) => {
+        if(!response.credential){
+            setError("root", { message: "Error login via google" });
+            return;
+        }
+
+        const idToken = response.credential;
+        try {
+            await handleLoginViaGoogle(idToken);
+            reset();
+            navigate("/");
+        } catch {
+            setError("root", { message: "Error login via google" });
+        }
+    };
+
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
           await handleLogin(data.email, data.password);
@@ -64,6 +84,13 @@ export const LoginForm = () => {
 
             <ButtonSubmit isSubmitting={isSubmitting} btnText="Log in" />
             <FormError error={errors.root} />
+
+            <GoogleOAuthProvider clientId={clientId}>
+                <div>
+                    <GoogleLogin onSuccess={handleGoogleLogin}
+                                 onError={() => {setError("root", { message: "Error login via google" });}}/>
+                </div>
+            </GoogleOAuthProvider>
         </form>
     )
 }

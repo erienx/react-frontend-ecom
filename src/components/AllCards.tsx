@@ -43,8 +43,8 @@ const AllCards = () => {
                 imageURL: item.imageURL,
                 price: item.price,
                 categoryName: item.categoryName,
-                prevPrice: 1000,
-                rating: 4.5,
+                reviewAverage: Math.round(item.reviewAverage * 10) / 10,
+                prevPrice: item.prevPrice,
             }));
             setItems([...items, ...newItems]);
             setHasMore(!res.data.last);

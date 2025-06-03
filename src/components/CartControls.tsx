@@ -47,7 +47,7 @@ const CartControls = ({ product }: Props) => {
 
         setLoading(true);
         try {
-            await axios.post(
+            const res = await axios.post(
                 "http://localhost:8080/api/shopping-carts",
                 {
                     userId: currentUser.userId,
@@ -58,7 +58,9 @@ const CartControls = ({ product }: Props) => {
                     headers: { Authorization: `Bearer ${authToken}` },
                 }
             );
+
             setInCart(true);
+            setCartItemId(res.data.id);
         } catch (err: any) {
             if (axios.isAxiosError(err)) {
                 console.error("Add to cart failed", err.response?.data);
@@ -71,7 +73,10 @@ const CartControls = ({ product }: Props) => {
     };
 
     const handleRemoveFromCart = async () => {
-        if (!cartItemId) return;
+        if (!cartItemId) {
+            console.log("aaa");
+            return;
+        }
 
         setLoading(true);
         try {
@@ -120,10 +125,10 @@ const CartControls = ({ product }: Props) => {
                 onClick={inCart ? handleRemoveFromCart : handleAddToCart}
                 disabled={!currentUser || loading || product.quantity === 0}
                 className={`mt-4 px-6 py-3 rounded-xl text-lg font-semibold shadow transition-all duration-200 cursor-pointer ${product.quantity === 0 || !currentUser || loading
-                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        : inCart
-                            ? "bg-red-500 text-white hover:bg-red-600"
-                            : "bg-accent1 text-white hover:bg-accent1-hover"
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : inCart
+                        ? "bg-red-500 text-white hover:bg-red-600"
+                        : "bg-accent1 text-white hover:bg-accent1-hover"
                     }`}
             >
                 {inCart ? "Remove from Cart" : "Add to Cart"}

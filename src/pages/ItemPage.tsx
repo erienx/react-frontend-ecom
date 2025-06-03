@@ -20,8 +20,7 @@ export const ItemPage = () => {
                 const res = await axios.get(`http://localhost:8080/api/products/${query}`);
                 const loadedProduct: ProductResponse = {
                     ...res.data,
-                    prevPrice: 1000,
-                    rating: 4.5,
+                    reviewAverage: Math.round(res.data.reviewAverage * 10) / 10
                 };
                 setProduct(loadedProduct);
 
@@ -37,8 +36,7 @@ export const ItemPage = () => {
                     .filter((item: ProductResponse) => item.id !== res.data.id)
                     .map((item: ProductResponse) => ({
                         ...item,
-                        prevPrice: 1000,
-                        rating: 4.5,
+                        reviewAverage: Math.round(item.reviewAverage * 10) / 10
                     }));
 
                 setRelated(filtered);

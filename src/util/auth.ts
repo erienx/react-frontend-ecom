@@ -18,6 +18,26 @@ export async function login(email: string, password: string) {
   return data.accessToken;
 }
 
+export async function loginViaGoogle(idToken: string) {
+  const response = await fetch("http://localhost:8080/api/auth/login/google", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ idToken }),
+  });
+
+  if (!response.ok) {
+    throw new Error("login failed");
+  }
+
+  const data = await response.json();
+
+  localStorage.setItem("refreshToken", data.refreshToken);
+
+  return data.accessToken;
+}
+
 let refreshInProgress: Promise<string> | null = null;
 
 export async function refreshToken() {

@@ -5,6 +5,7 @@ type AuthContext = {
     authToken?: string | null;
     currentUser?: User | null;
     handleLogin: (email: string, password: string) => Promise<void>;
+    handleLoginViaGoogle: (idToken: string) => Promise<void>;
     handleLogout: () => Promise<void>;
     loading: boolean;
 };

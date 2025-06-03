@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { User } from "../../types/types";
-import { login, logout, refreshToken } from "../../util/auth";
+import {login, loginViaGoogle, logout, refreshToken} from "../../util/auth";
 import { AuthContext } from "./AuthContext";
 import getMe from "../../api/getMe";
 
@@ -47,6 +47,19 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         }
     }
 
+    async function handleLoginViaGoogle(idToken: string) {
+        try {
+            const accessToken = await loginViaGoogle(idToken);
+            setAuthToken(accessToken);
+            const user = await getMe(accessToken);
+            setCurrentUser(user);
+        } catch {
+            setAuthToken(null);
+            setCurrentUser(null);
+            throw new Error("Login failed");
+        }
+    }
+
     async function handleLogout() {
         await logout();
         setAuthToken(null);
@@ -54,7 +67,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ authToken, currentUser, handleLogin, handleLogout, loading }}>
+        <AuthContext.Provider value={{ authToken, currentUser, handleLogin, handleLoginViaGoogle, handleLogout, loading }}>
             {children}
         </AuthContext.Provider>
     );

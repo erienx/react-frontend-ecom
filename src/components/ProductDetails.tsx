@@ -31,7 +31,7 @@ const ProductDetails = ({ product, onShowReviews }: Props) => {
                 <h4 className="text-xl font-semi-bold text-gray-600">by <span className="font-bold">{product.brandName}</span></h4>
 
                 <div className="flex items-center gap-3 mb-2">
-                    <Rating rating={product.rating} />
+                    <Rating rating={product.reviewAverage} />
                     <button
                         onClick={onShowReviews}
                         className="text-md text-blue-500 cursor-pointer hover:text-blue-700">See reviews</button>
