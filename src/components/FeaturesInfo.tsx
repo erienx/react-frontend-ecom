@@ -7,17 +7,17 @@ const featureData = [
     {
         Icon: ShippingIcon,
         title: "FREE SHIPPING",
-        desc: "Lorem ipsum is simply dummy text of the printing and typesetting industry."
+        desc: "Enjoy fast and free delivery on all orders with no minimum purchase required."
     },
     {
         Icon: RefundIcon,
         title: "100% REFUND",
-        desc: "Lorem ipsum is simply dummy text of the printing and typesetting industry."
+        desc: "Shop with confidence—get a full refund if you're not completely satisfied."
     },
     {
         Icon: SupportIcon,
         title: "SUPPORT 24/7",
-        desc: "Lorem ipsum is simply dummy text of the printing and typesetting industry."
+        desc: "Our dedicated team is available around the clock to assist you with any inquiries."
     }
 ];
 

@@ -1,6 +1,6 @@
 import FeaturesInfo from "../components/FeaturesInfo"
 import HeroSection from "../components/HeroSection"
-import AllCards from "../components/HomeCards"
+import AllCards from "../components/AllCards"
 import SearchInput from "../components/ui/SearchInput"
 import LatestNews from "../components/LatestNews.tsx";
 

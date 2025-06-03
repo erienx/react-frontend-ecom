@@ -9,9 +9,10 @@ import FormError from "../components/ui/FormError";
 import ButtonSubmit from "../components/ui/ButtonSubmit";
 import FormInput from "../components/FormInput";
 import { useNavigate } from "react-router-dom";
+import useAuth from "./providers/AuthContext";
+import addMember from "../api/addMember";
 
 
-// Zod schema for Register Form
 const schema = z
     .object({
         firstName: z.string().min(1, { message: "First name is required" }),
@@ -43,21 +44,28 @@ export const RegisterForm = () => {
     const emailValue = watch("email");
     const passwordValue = watch("password");
     const confirmPasswordValue = watch("confirmPassword");
-    
+
     const navigate = useNavigate();
+
+    const { handleLogin } = useAuth();
 
     const onSubmit: SubmitHandler<FormFields> = async (data) => {
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            console.log(data);
+            await addMember(data);
+            await handleLogin(data.email, data.password);
 
-            //if successful
             reset();
             navigate("/");
-        } catch {
-            setError("root", {
-                message: "Something went wrong. Try again later.",
-            });
+        } catch (err) {
+            if (err instanceof Error) {
+                setError("root", {
+                    message: err.message,
+                });
+            } else {
+                setError("root", {
+                    message: "An unexpected error occurred",
+                });
+            }
         }
     };
 

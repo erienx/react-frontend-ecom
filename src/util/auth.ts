@@ -1,57 +1,50 @@
-//this is a mock backend 
-import {User} from "../types/types"
+export async function login(email: string, password: string) {
+  const response = await fetch("http://localhost:8080/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password }),
+  });
 
-const testUser: User ={
-    id: 1,
-    email: 'test@em.com',
-    firstName: 'Fname',
-    lastName: 'Lname',
-    role: 'user',
-};
-
-
-// mockSession token simulates http only cookie from backend
-export async function getUser() {
-    await new Promise((resole) => setTimeout(resole,200));
-
-    const savedToken = localStorage.getItem("mockSessionToken");
-
-  if (!savedToken) {
-    throw new Error("Not authenticated");
+  if (!response.ok) {
+    throw new Error("login failed");
   }
 
-  const authToken = generateAuthToken();
+  const data = await response.json();
 
-  return {
-    status: 200,
-    data: {
-      authToken,
-      user: testUser,
-    },
-  };
-}
-export async function login(){
-    await new Promise((resolve) => setTimeout(resolve,1000));
+  localStorage.setItem("refreshToken", data.refreshToken);
 
-    const authToken = generateAuthToken();
-
-  localStorage.setItem("mockSessionToken", authToken);
-
-  return {
-    status: 200,
-    data: {
-      authToken,
-      user: testUser,
-    },
-  };
+  return data.accessToken;
 }
 
-export async function logout(){
-    await new Promise((resolve) => setTimeout(resolve,500));
-    localStorage.removeItem("mockSessionToken");
+let refreshInProgress: Promise<string> | null = null;
+
+export async function refreshToken() {
+  if (refreshInProgress) return refreshInProgress;
+
+  refreshInProgress = (async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!refreshToken) throw new Error("No refresh token");
+
+    const response = await fetch("http://localhost:8080/api/auth/token/refresh", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ refreshToken }),
+    });
+
+    refreshInProgress = null;
+
+    if (!response.ok) throw new Error("Refresh failed");
+
+    const data = await response.json();
+    if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
+    return data.accessToken;
+  })();
+
+  return refreshInProgress;
 }
 
-function generateAuthToken() {
-    return Math.random().toString(36).substring(2);
+export async function logout() {
+  localStorage.removeItem("refreshToken");
 }
-
