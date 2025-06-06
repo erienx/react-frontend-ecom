@@ -17,6 +17,9 @@ import { ItemPage } from './pages/ItemPage.tsx'
 import CartPage from './pages/CartPage.tsx'
 import SearchPage from './pages/SearchPage.tsx'
 import WishlistPage from './pages/WishlistPage.tsx'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage.tsx'
+import TermsOfServicePage from './pages/TermsOfServicePage.tsx'
+import CookiePolicyPage from './pages/CookiePolicyPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -56,8 +59,19 @@ const router = createBrowserRouter([
       {
         path: 'wishlist',
         element: <WishlistPage />
+      },
+      {
+        path: 'privacy-policy',
+        element: <PrivacyPolicyPage />
+      },
+      {
+        path: 'terms-of-service',
+        element: <TermsOfServicePage />
+      },
+      {
+        path: 'cookie-policy',
+        element: <CookiePolicyPage />
       }
-
     ]
   },
   {
@@ -75,9 +89,9 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </StrictMode>,
+    <StrictMode>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </StrictMode>,
 )

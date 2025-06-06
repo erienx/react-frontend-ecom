@@ -46,7 +46,7 @@ const AllCards = () => {
                 reviewAverage: Math.round(item.reviewAverage * 10) / 10,
                 prevPrice: item.prevPrice,
             }));
-            setItems([...items, ...newItems]);
+            setItems((prevItems) => [...prevItems, ...newItems]);
             setHasMore(!res.data.last);
         } catch (error) {
             console.error("Error fetching items", error);
