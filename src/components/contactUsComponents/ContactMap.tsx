@@ -12,21 +12,17 @@ const ContactMap = () => {
                 </div>
 
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <div className="relative h-96 bg-gray-200 flex items-center justify-center">
-                        {/* Placeholder for map - in real implementation you'd use Google Maps or similar */}
-                        <div className="text-center text-gray-500">
-                            <div className="text-4xl mb-4">🗺️</div>
-                            <p className="text-lg font-medium">Interactive Map</p>
-                            <p className="text-sm">123 Electronics Street, Warsaw</p>
-                            <div className="mt-4 space-x-4">
-                                <button className="bg-accent1 hover:bg-accent1-hover text-white px-4 py-2 rounded-lg transition-colors duration-200">
-                                    Get Directions
-                                </button>
-                                <button className="border border-accent1 text-accent1 hover:bg-accent1 hover:text-white px-4 py-2 rounded-lg transition-colors duration-200">
-                                    View on Google Maps
-                                </button>
-                            </div>
-                        </div>
+                    <div className="relative h-96">
+                        <iframe
+                            title="Politechnika Łódzka"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2443.1340629568383!2d19.4491427!3d51.7537146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471a34d85d1152f3%3A0xbe75c3beee4bad56!2sPolitechnika%20%C5%81%C3%B3dzka!5e0!3m2!1spl!2spl!4v1718016712"
+                            width="100%"
+                            height="100%"
+                            // allowFullScreen=""
+                            loading="lazy"
+                            style={{border: 0}}
+                            referrerPolicy="no-referrer-when-downgrade"
+                        />
                     </div>
 
                     <div className="p-6 bg-white">
@@ -36,7 +32,7 @@ const ContactMap = () => {
                                 <p className="text-gray-600 text-sm">Free parking available</p>
                             </div>
                             <div className="text-center">
-                                <h3 className="font-semibold text-dark mb-1">Public Transport</h3>
+                            <h3 className="font-semibold text-dark mb-1">Public Transport</h3>
                                 <p className="text-gray-600 text-sm">Metro station 2 min walk</p>
                             </div>
                             <div className="text-center">
