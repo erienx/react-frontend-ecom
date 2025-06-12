@@ -43,7 +43,6 @@ const SearchPage = () => {
         Object.entries(updates).forEach(([key, value]) => newParams.set(key, value.toString()));
         setSearchParams(newParams);
     };
-
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -52,9 +51,16 @@ const SearchPage = () => {
                     params: { page: currentPage, size: pageSize, sortBy, sortDir, name: query || '', }
                 });
                 const data = response.data;
-                setProducts(data.content.map((p: ProductResponse) => ({ ...p })));
+
+                // Round the reviewAverage to one decimal place for each product
+                const loadedProducts = data.content.map((product: ProductResponse) => ({
+                    ...product,
+                    reviewAverage: product.reviewAverage ? Math.round(product.reviewAverage * 10) / 10 : 0,
+                }));
+
+                setProducts(loadedProducts);
                 setPageInfo(data);
-            } catch {
+            } catch (error) {
                 setError("Failed to load search results. Please try again.");
             } finally {
                 setLoading(false);
@@ -63,6 +69,7 @@ const SearchPage = () => {
 
         fetchProducts();
     }, [query, currentPage, sortBy, sortDir, pageSize]);
+
 
     const handleSearch = (newQuery: string) => {
         navigate(`/search/term/${encodeURIComponent(newQuery)}`);
