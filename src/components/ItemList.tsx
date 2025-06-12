@@ -57,27 +57,32 @@ const ItemList = ({ item, quantity = 1, onRemove, onQuantityChange }: Props) => 
                         )}
                     </div>
                     {onQuantityChange && (
-                        <div className="flex items-center gap-2 mt-2">
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onQuantityChange(-1);
-                                }}
-                                className="px-2 py-1 bg-slate-300 rounded hover:bg-slate-400"
-                                disabled={quantity <= 1}
-                            >
-                                -
-                            </button>
-                            <span className="px-3">{quantity}</span>
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onQuantityChange(1);
-                                }}
-                                className="px-2 py-1 bg-slate-300 rounded hover:bg-slate-400"
-                            >
-                                +
-                            </button>
+                        <div className="flex items-center justify-between gap-2 mt-2">
+                            <div>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onQuantityChange(-1);
+                                    }}
+                                    className="px-2 py-1 bg-slate-300 rounded hover:bg-slate-400"
+                                    disabled={quantity <= 1}
+                                >
+                                    -
+                                </button>
+                                <span className="px-3">{quantity}</span>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onQuantityChange(1);
+                                    }}
+                                    className="px-2 py-1 bg-slate-300 rounded hover:bg-slate-400"
+                                >
+                                    +
+                                </button>
+                            </div>
+                            <div>
+                                <p className="text-xl">Item total: <span className="font-bold">{parseFloat((item.price * quantity).toFixed(2))}</span></p>
+                            </div>
                         </div>
                     )}
                 </div>

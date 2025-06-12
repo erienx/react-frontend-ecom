@@ -8,6 +8,14 @@ const CartPage = () => {
   const { authToken, currentUser } = useAuth();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [sum, setSum] = useState(0);
+
+
+  useEffect(() => {
+    const total = cartItems.reduce((sum, item) => { return sum + item.product.price * item.quantity; }, 0);
+    setSum(parseFloat(total.toFixed(2)));
+  }, [cartItems]);
+
 
   const fetchCartItems = async () => {
     try {
@@ -101,17 +109,22 @@ const CartPage = () => {
       ) : cartItems.length === 0 ? (
         <p className="text-lg text-gray-600">Your cart is empty.</p>
       ) : (
-        <div className="flex flex-col gap-4">
-          {cartItems.map(item => (
+        <>
+          <div className="flex flex-col gap-4">
+            {cartItems.map(item => (
 
-            <ItemList
-              key={item.cartId}
-              item={item.product}
-              quantity={item.quantity}
-              onRemove={() => handleRemove(item.cartId)}
-              onQuantityChange={(delta) => handleQuantityChange(item.cartId, item.product.id, item.quantity + delta, currentUser?.userId)} />
-          ))}
-        </div>
+              <ItemList
+                key={item.cartId}
+                item={item.product}
+                quantity={item.quantity}
+                onRemove={() => handleRemove(item.cartId)}
+                onQuantityChange={(delta) => handleQuantityChange(item.cartId, item.product.id, item.quantity + delta, currentUser?.userId)} />
+            ))}
+          </div>
+          <div className="flex justify-end items-center mt-4 mx-3">
+            <p className="text-2xl">Total: <span className="font-bold">${sum}</span></p>
+          </div>
+        </>
       )}
     </div>
   );
