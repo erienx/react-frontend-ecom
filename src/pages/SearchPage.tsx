@@ -52,7 +52,7 @@ const SearchPage = () => {
                     params: { page: currentPage, size: pageSize, sortBy, sortDir, name: query || '', }
                 });
                 const data = response.data;
-                setProducts(data.content.map((p: ProductResponse) => ({ ...p, prevPrice: 1000, rating: 4.5 })));
+                setProducts(data.content.map((p: ProductResponse) => ({ ...p })));
                 setPageInfo(data);
             } catch {
                 setError("Failed to load search results. Please try again.");
